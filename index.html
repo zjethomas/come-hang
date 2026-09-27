@@ -80,6 +80,10 @@ a{color:var(--rust)} a:hover{color:var(--rust-dark)}
 .success-actions a{font-size:16px;font-weight:700;padding:9px 18px 10px;text-decoration:none}
 .btn-cal{background:var(--teal);color:var(--paper);border:2px solid var(--ink-line);border-radius:var(--sketch-a);transform:rotate(-1.5deg)}
 .btn-text{color:var(--ink);border:2px solid rgba(59,42,30,.6);border-radius:var(--sketch-b);transform:rotate(1.5deg)}
+.nudge-row{flex-basis:100%;display:flex;align-items:center;gap:4px}
+.nudge-row .btn-text{flex:none}
+.nudge-arrows{width:46px;height:56px;flex:none;animation:nudge 1.1s ease-in-out infinite}
+.nudge-text{font-family:'Caveat Brush',cursive;font-size:23px;line-height:.95;color:var(--rust);transform:rotate(-5deg)}
 
 [hidden]{display:none!important}
 .fx{position:fixed;inset:0;pointer-events:none;overflow:hidden}
@@ -88,8 +92,9 @@ a{color:var(--rust)} a:hover{color:var(--rust-dark)}
 
 @keyframes fall{0%{transform:translate3d(0,-8vh,0) rotate(0)}25%{transform:translate3d(var(--sway),22vh,0) rotate(90deg)}50%{transform:translate3d(0,50vh,0) rotate(180deg)}75%{transform:translate3d(var(--sway),78vh,0) rotate(270deg)}100%{transform:translate3d(0,110vh,0) rotate(360deg)}}
 @keyframes burst{0%{transform:translate(0,0) rotate(0) scale(.5);opacity:1}35%{transform:translate(var(--dx),var(--dy)) rotate(var(--r1)) scale(1);opacity:1}100%{transform:translate(calc(var(--dx) * 1.35),calc(var(--dy) + 70vh)) rotate(var(--r2)) scale(1);opacity:0}}
+@keyframes nudge{0%,100%{transform:translateX(0)}50%{transform:translateX(-5px)}}
 @keyframes settle{0%{opacity:0;transform:translateY(14px) rotate(-4deg)}100%{opacity:1;transform:translateY(0) rotate(-1.2deg)}}
-@media (prefers-reduced-motion:reduce){.fx--leaves{display:none}.btn-no{transition:none}}
+@media (prefers-reduced-motion:reduce){.fx--leaves{display:none}.btn-no{transition:none}.nudge-arrows{animation:none}}
 </style>
 </head>
 <body>
@@ -151,7 +156,15 @@ a{color:var(--rust)} a:hover{color:var(--rust-dark)}
         <p>October 4, 11am at Luxor Cafe.</p>
         <div class="success-actions">
           <a class="btn-cal" id="cal" download="coffee-sunday.ics">Add to calendar</a>
-          <a class="btn-text" id="sms">Let Zac know</a>
+          <div class="nudge-row">
+            <a class="btn-text" id="sms">Let Zac know</a>
+            <svg class="nudge-arrows" viewBox="0 0 46 56" fill="none" stroke="var(--ink-line)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M43 6 Q24 6 8 23 M16.6 20.3 L8 23 L10 14.2"/>
+              <path d="M44 29 Q26 25 6 29 M14.5 31.8 L6 29 L12.7 23"/>
+              <path d="M42 52 Q22 52 9 36 M10.4 44.9 L9 36 L17.4 39.3"/>
+            </svg>
+            <span class="nudge-text">You should<br>click this</span>
+          </div>
         </div>
       </div>
     </div>
