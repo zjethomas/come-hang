@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Come hang?</title>
+<meta name="theme-color" content="#F3E6CB">
+<!-- Link preview (iMessage / OG). og:image MUST be an absolute https URL once deployed. -->
+<meta property="og:type" content="website">
+<meta property="og:title" content="Come hang?">
+<meta property="og:description" content="Sunday, October 4 · 11am · Luxor Cafe">
+<meta property="og:image" content="https://zjethomas.github.io/come-hang/assets/link-preview.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Caveat+Brush&family=Kalam:wght@400;700&family=DM+Mono:wght@500&display=swap" rel="stylesheet">
+<link rel="preload" as="image" href="assets/scene-portrait.jpg" media="(max-width: 759px)">
+<style>
+:root{
+  --ink:#2E2119; --ink-line:#3B2A1E; --rust:#B4502A; --rust-dark:#7E3419; --muted:#7A6150;
+  --paper:#FBF5E6; --page:#F1E6D0; --ticket:#F0D8AA; --teal:#2A6466; --cream-text:#FFF6E8;
+  --tape-ochre:rgba(221,166,64,.62); --tape-teal:rgba(127,168,163,.6);
+  --sketch-a:255px 18px 225px 18px / 18px 225px 18px 255px;
+  --sketch-b:15px 225px 15px 255px / 255px 15px 225px 15px;
+  --torn:polygon(0 1.5%,12% 0,30% 1%,55% 0,78% 1.2%,100% 0,100% 95%,94% 98.5%,88% 96%,81% 99.5%,74% 96.5%,67% 100%,60% 97%,53% 99%,46% 96%,39% 99.5%,32% 96.5%,25% 100%,18% 97%,11% 99%,5% 96%,0 98.5%);
+  --tape:polygon(0 8%,6% 0,12% 10%,20% 2%,30% 8%,40% 0,52% 9%,63% 1%,74% 8%,86% 0,94% 9%,100% 3%,100% 92%,93% 100%,84% 91%,72% 99%,61% 92%,49% 100%,38% 91%,27% 99%,16% 92%,7% 100%,0 94%);
+  --notch:radial-gradient(circle at 0 50%,transparent 11px,#000 11.5px) left/51% 100% no-repeat,radial-gradient(circle at 100% 50%,transparent 11px,#000 11.5px) right/51% 100% no-repeat;
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;background:var(--page) url(assets/paper.svg);-webkit-text-size-adjust:100%}
+body{font-family:Kalam,'Comic Sans MS',cursive;color:var(--ink);overflow-x:hidden;min-height:100dvh}
+a{color:var(--rust)} a:hover{color:var(--rust-dark)}
+.brush{font-family:'Caveat Brush',cursive;font-weight:400}
+
+.hero{position:relative;z-index:0;max-width:1200px;margin:0 auto}
+.hero img{display:block;width:100%;height:auto}
+.hero h1{position:absolute;left:6%;top:3.5%;margin:2px 0 0;transform:rotate(-4deg);transform-origin:left top;font-size:clamp(78px,11vw,150px);line-height:.9;letter-spacing:-.005em;color:var(--ink)}
+.hero h1 span,.accent{color:var(--rust)}
+
+.content{position:relative;z-index:2;max-width:440px;margin:-72px auto 0;padding:0 14px calc(56px + env(safe-area-inset-bottom)) 10px}
+
+.note{position:relative}
+.note .tape{position:absolute;z-index:2;top:-13px;width:92px;height:26px;clip-path:var(--tape)}
+.note .sheet{background:var(--paper) url(assets/paper.svg);clip-path:var(--torn)}
+.note--details{margin:0 2px 0 24px;transform:rotate(1.6deg)}
+.note--details .tape{left:34%;background:var(--tape-ochre);transform:rotate(-7deg)}
+.note--details .sheet{padding:26px 20px 30px 22px}
+.row{display:grid;grid-template-columns:34px minmax(0,1fr);gap:4px 10px;align-items:start;color:var(--ink);text-decoration:none}
+.row + .row{margin-top:16px}
+.row > img{width:32px;height:32px}
+.row .label{font-family:'Caveat Brush',cursive;font-size:19px;color:var(--rust);line-height:1}
+.row .val{font-size:19px;line-height:1.3;text-wrap:pretty}
+.row .col{display:flex;flex-direction:column}
+.row .squiggle{width:170px;height:10px;margin-top:1px;opacity:.8}
+.row .hint{font-size:14px;color:var(--muted);margin-top:2px}
+
+.ticket{margin:22px 30px 0 4px;transform:rotate(-1.8deg);display:grid;grid-template-columns:minmax(0,1fr) 46px;background:var(--ticket) url(assets/paper.svg);-webkit-mask:var(--notch);mask:var(--notch)}
+.ticket .main{padding:16px 12px 16px 24px}
+.ticket h2{margin:0;font-size:32px;line-height:1}
+.ticket ul{list-style:none;margin:14px 0 0;padding:0;display:grid;gap:12px}
+.ticket li{display:grid;grid-template-columns:24px minmax(0,1fr) 30px;gap:10px;align-items:start;font-size:17px;line-height:1.3;text-wrap:pretty}
+.ticket .box{width:21px;height:21px;margin-top:3px;border:2px solid var(--ink-line)}
+.ticket li img{width:28px;height:28px}
+.ticket .stub{border-left:2px dashed rgba(59,42,30,.4);display:flex;align-items:center;justify-content:center}
+.ticket .stub span{writing-mode:vertical-rl;font-family:'DM Mono',monospace;font-weight:500;font-size:11px;letter-spacing:.22em;color:#9A4424}
+
+.actions{display:flex;align-items:center;gap:18px;margin:30px 0 0 30px}
+.btn-yes{font-family:'Caveat Brush',cursive;font-size:30px;line-height:1;padding:10px 30px 12px;background:var(--rust);color:var(--cream-text);border:2.5px solid var(--ink-line);border-radius:var(--sketch-a);transform:rotate(-2.5deg);cursor:pointer}
+.btn-yes:active{transform:rotate(-2.5deg) scale(.95)}
+.btn-no{position:relative;z-index:20;font-family:Kalam,cursive;font-size:18px;line-height:1;padding:10px 20px 11px;background:var(--paper);color:#5E4838;border:2px solid rgba(59,42,30,.6);border-radius:var(--sketch-b);cursor:pointer;touch-action:manipulation;transform:translate(var(--nx,0px),var(--ny,0px)) rotate(var(--nr,2deg));transition:transform .42s cubic-bezier(.34,1.56,.64,1)}
+
+.note--success{margin:0 6px 0 18px;animation:settle .7s cubic-bezier(.3,1.4,.5,1) both}
+.note--success .tape{left:12%;background:var(--tape-teal);transform:rotate(5deg)}
+.note--success .sheet{padding:30px 22px 34px}
+.note--success h2{margin:0;font-size:56px;line-height:.95;text-wrap:balance}
+.note--success p{margin:12px 0 0;font-size:17px;line-height:1.4;color:#4E3B2E}
+.success-actions{display:flex;flex-wrap:wrap;gap:14px;margin-top:22px}
+.success-actions a{font-size:16px;font-weight:700;padding:9px 18px 10px;text-decoration:none}
+.btn-cal{background:var(--teal);color:var(--paper);border:2px solid var(--ink-line);border-radius:var(--sketch-a);transform:rotate(-1.5deg)}
+.btn-text{color:var(--ink);border:2px solid rgba(59,42,30,.6);border-radius:var(--sketch-b);transform:rotate(1.5deg)}
+
+[hidden]{display:none!important}
+.fx{position:fixed;inset:0;pointer-events:none;overflow:hidden}
+.fx--leaves{z-index:1} .fx--confetti{z-index:50}
+.fx i{position:absolute;display:block}
+
+@keyframes fall{0%{transform:translate3d(0,-8vh,0) rotate(0)}25%{transform:translate3d(var(--sway),22vh,0) rotate(90deg)}50%{transform:translate3d(0,50vh,0) rotate(180deg)}75%{transform:translate3d(var(--sway),78vh,0) rotate(270deg)}100%{transform:translate3d(0,110vh,0) rotate(360deg)}}
+@keyframes burst{0%{transform:translate(0,0) rotate(0) scale(.5);opacity:1}35%{transform:translate(var(--dx),var(--dy)) rotate(var(--r1)) scale(1);opacity:1}100%{transform:translate(calc(var(--dx) * 1.35),calc(var(--dy) + 70vh)) rotate(var(--r2)) scale(1);opacity:0}}
+@keyframes settle{0%{opacity:0;transform:translateY(14px) rotate(-4deg)}100%{opacity:1;transform:translateY(0) rotate(-1.2deg)}}
+@media (prefers-reduced-motion:reduce){.fx--leaves{display:none}.btn-no{transition:none}}
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <picture>
+    <source media="(min-width: 760px)" srcset="assets/scene-wide.jpg">
+    <img src="assets/scene-portrait.jpg" width="1170" height="1560" alt="A couple walking along the Charles River toward the Weeks Footbridge, Harvard's bell towers above the autumn trees">
+  </picture>
+  <h1 class="brush">Come <span>hang?</span></h1>
+</header>
+
+<div class="fx fx--leaves" id="leaves" aria-hidden="true"></div>
+
+<main class="content">
+  <section id="invite">
+    <div class="note note--details">
+      <div class="tape"></div>
+      <div class="sheet">
+        <div class="row">
+          <img src="assets/doodle-clock.svg" alt="" style="transform:rotate(-8deg)">
+          <div class="col"><span class="label">when</span><span class="val">Sunday, October 4 · 11am</span></div>
+        </div>
+        <a class="row" href="https://maps.apple.com/?q=Luxor+Cafe&amp;address=148+Mt+Auburn+St,+Cambridge,+MA+02138" target="_blank" rel="noopener">
+          <img src="assets/doodle-pin.svg" alt="" style="transform:rotate(6deg)">
+          <div class="col">
+            <span class="label">where</span>
+            <span class="val">Luxor Cafe · 148 Mt Auburn St, Cambridge</span>
+            <img class="squiggle" src="assets/squiggle.svg" alt="">
+            <span class="hint">(tap for directions →)</span>
+          </div>
+        </a>
+      </div>
+    </div>
+
+    <div class="ticket">
+      <div class="main">
+        <h2 class="brush">Run of show</h2>
+        <ul>
+          <li><span class="box" style="border-radius:4px 8px 3px 7px;transform:rotate(-5deg)"></span><span>Fred Again / Latin Mafia mixtape review</span><img src="assets/doodle-note.svg" alt="" style="transform:rotate(10deg)"></li>
+          <li><span class="box" style="border-radius:7px 3px 8px 4px;transform:rotate(4deg)"></span><span>Semiconductor supply chains + counting agents</span><img src="assets/doodle-chip.svg" alt="" style="transform:rotate(-8deg)"></li>
+          <li><span class="box" style="border-radius:5px 7px 4px 9px;transform:rotate(-2deg)"></span><span>Brainstorming next Substack pieces</span><img src="assets/doodle-pen.svg" alt="" style="transform:rotate(4deg)"></li>
+        </ul>
+      </div>
+      <div class="stub"><span>ADMIT TWO · SUN 10/4</span></div>
+    </div>
+
+    <div class="actions">
+      <button class="btn-yes" id="yes" type="button">Yes ☕</button>
+      <button class="btn-no" id="no" type="button">No</button>
+    </div>
+  </section>
+
+  <section id="success" hidden>
+    <div class="note note--success">
+      <div class="tape"></div>
+      <div class="sheet">
+        <h2 class="brush">See you Sunday ☕</h2>
+        <p>October 4, 11am at Luxor Cafe.</p>
+        <div class="success-actions">
+          <a class="btn-cal" id="cal" download="coffee-sunday.ics">Add to calendar</a>
+          <a class="btn-text" id="sms">Let Zac know</a>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<script>
+(() => {
+  // ---- Config ----
+  const ZAC_PHONE = '';            // e.g. '+16175551234' — leave '' to open a blank iMessage composer
+  const SMS_BODY  = 'Yes Dunkin is superior to Starbucks I agree no takebacks';
+  const PALETTE   = ['#C8622D','#D9A441','#9E3F22','#E4B653','#B8532A','#2A6466','#DB8A3A'];
+  const NO_LABELS = ['No','hmm, no?','nope','too slow','it’s just coffee','so close','try Yes?'];
+
+  const $ = id => document.getElementById(id);
+  const yes = $('yes'), no = $('no');
+
+  // ---- Calendar + SMS links ----
+  const ics = [
+    'BEGIN:VCALENDAR','VERSION:2.0','PRODID:-//Come Hang//EN','BEGIN:VEVENT',
+    'UID:come-hang-20261004@luxor','DTSTAMP:20260926T120000Z',
+    'DTSTART:20261004T150000Z','DTEND:20261004T170000Z',   // 11am–1pm America/New_York (EDT)
+    'SUMMARY:Coffee with Zac ☕','LOCATION:Luxor Cafe\\, 148 Mt Auburn St\\, Cambridge\\, MA',
+    'DESCRIPTION:Run of show: Fred Again / Latin Mafia mixtape review. Semiconductor supply chains + counting agents. Brainstorming next Substack pieces.',
+    'END:VEVENT','END:VCALENDAR'
+  ].join('\r\n');
+  $('cal').href = 'data:text/calendar;charset=utf-8,' + encodeURIComponent(ics);
+  $('sms').href = `sms:${ZAC_PHONE.replace(/[^\d+]/g,'')}&body=${encodeURIComponent(SMS_BODY)}`;
+
+  // ---- Ambient falling leaves ----
+  if (!matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    const box = $('leaves');
+    for (let i = 0; i < 8; i++) {
+      const l = document.createElement('i'), s = 9 + Math.random() * 7;
+      Object.assign(l.style, {
+        top: 0, left: (4 + Math.random() * 92) + '%', width: s + 'px', height: s + 'px',
+        borderRadius: '0 100% 0 100%', background: PALETTE[i % 5], opacity: .85,
+        animation: `fall ${11 + Math.random() * 8}s linear ${-Math.random() * 16}s infinite`
+      });
+      l.style.setProperty('--sway', ((Math.random() > .5 ? 1 : -1) * (24 + Math.random() * 40)) + 'px');
+      box.appendChild(l);
+    }
+  }
+
+  // ---- The dodging No button ----
+  let off = { x: 0, y: 0 }, dodges = 0;
+  function dodge() {
+    const r = no.getBoundingClientRect();
+    const bx = r.left - off.x, by = r.top - off.y, m = 16, vw = innerWidth, vh = innerHeight;
+    let tx, ty, i = 0;
+    do {
+      tx = m + Math.random() * Math.max(0, vw - r.width - 2 * m);
+      ty = m + 50 + Math.random() * Math.max(0, vh - r.height - 2 * m - 50);
+    } while (Math.hypot(tx - r.left, ty - r.top) < 150 && ++i < 25);
+    off = { x: tx - bx, y: ty - by };
+    no.style.setProperty('--nx', off.x + 'px');
+    no.style.setProperty('--ny', off.y + 'px');
+    no.style.setProperty('--nr', (2 + (Math.random() - .5) * 16) + 'deg');
+    no.textContent = NO_LABELS[Math.min(++dodges, NO_LABELS.length - 1)];
+  }
+  no.addEventListener('pointerenter', e => { if (e.pointerType === 'mouse') dodge(); });
+  no.addEventListener('pointerdown', e => { e.preventDefault(); dodge(); });
+  no.addEventListener('click', e => { e.preventDefault(); dodge(); });
+
+  // ---- Yes → confetti + success ----
+  function confetti(x, y) {
+    const layer = document.createElement('div');
+    layer.className = 'fx fx--confetti';
+    for (let i = 0; i < 48; i++) {
+      const a = -Math.PI / 2 + (Math.random() - .5) * Math.PI * 1.4, d = 110 + Math.random() * 230;
+      const kind = i % 3, s = 10 + Math.random() * 10, w = kind === 2 ? 7 : s, h = kind === 2 ? s * 1.3 : s * (kind === 0 ? 1.1 : 1);
+      const p = document.createElement('i');
+      Object.assign(p.style, {
+        left: x + 'px', top: y + 'px', width: w + 'px', height: h + 'px', marginLeft: -w / 2 + 'px', marginTop: -h / 2 + 'px',
+        background: PALETTE[i % PALETTE.length],
+        borderRadius: ['0 100% 0 100%', '10% 90% 20% 80%', '40% 60% 50% 50%'][kind],
+        animation: `burst ${1.7 + Math.random() * .9}s cubic-bezier(.15,.7,.35,1) ${Math.random() * .08}s both`
+      });
+      p.style.setProperty('--dx', Math.cos(a) * d + 'px');
+      p.style.setProperty('--dy', Math.sin(a) * d + 'px');
+      p.style.setProperty('--r1', (Math.random() - .5) * 360 + 'deg');
+      p.style.setProperty('--r2', (Math.random() - .5) * 900 + 'deg');
+      layer.appendChild(p);
+    }
+    document.body.appendChild(layer);
+    setTimeout(() => layer.remove(), 3000);
+  }
+  yes.addEventListener('click', () => {
+    const r = yes.getBoundingClientRect();
+    confetti(r.left + r.width / 2, r.top + r.height / 2);
+    $('invite').hidden = true;
+    $('success').hidden = false;
+    navigator.vibrate?.(12);
+  });
+})();
+</script>
+</body>
+</html>
