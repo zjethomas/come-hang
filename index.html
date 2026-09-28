@@ -96,6 +96,14 @@ a{color:var(--rust)} a:hover{color:var(--rust-dark)}
 @keyframes settle{0%{opacity:0;transform:translateY(14px) rotate(-4deg)}100%{opacity:1;transform:translateY(0) rotate(-1.2deg)}}
 @media (prefers-reduced-motion:reduce){.fx--leaves{display:none}.btn-no{transition:none}.nudge-arrows{animation:none}}
 </style>
+<!-- Microsoft Clarity analytics -->
+<script type="text/javascript">
+    (function(c,l,a,r,i,t,y){
+        c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+        t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+        y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+    })(window, document, "clarity", "script", "ypbz945tmp");
+</script>
 </head>
 <body>
 
@@ -181,6 +189,7 @@ a{color:var(--rust)} a:hover{color:var(--rust-dark)}
 
   const $ = id => document.getElementById(id);
   const yes = $('yes'), no = $('no');
+  const track = name => window.clarity?.('event', name);   // Clarity custom events
 
   // ---- Calendar + SMS links ----
   const ics = [
@@ -193,6 +202,8 @@ a{color:var(--rust)} a:hover{color:var(--rust-dark)}
   ].join('\r\n');
   $('cal').href = 'data:text/calendar;charset=utf-8,' + encodeURIComponent(ics);
   $('sms').href = `sms:${ZAC_PHONE.replace(/[^\d+]/g,'')}&body=${encodeURIComponent(SMS_BODY)}`;
+  $('cal').addEventListener('click', () => track('add_to_calendar'));
+  $('sms').addEventListener('click', () => track('let_zac_know'));
 
   // ---- Ambient falling leaves ----
   if (!matchMedia('(prefers-reduced-motion: reduce)').matches) {
@@ -224,6 +235,7 @@ a{color:var(--rust)} a:hover{color:var(--rust-dark)}
     no.style.setProperty('--ny', off.y + 'px');
     no.style.setProperty('--nr', (2 + (Math.random() - .5) * 16) + 'deg');
     no.textContent = NO_LABELS[Math.min(++dodges, NO_LABELS.length - 1)];
+    track('no_dodged');
   }
   no.addEventListener('pointerenter', e => { if (e.pointerType === 'mouse') dodge(); });
   no.addEventListener('pointerdown', e => { e.preventDefault(); dodge(); });
@@ -258,6 +270,7 @@ a{color:var(--rust)} a:hover{color:var(--rust-dark)}
     $('invite').hidden = true;
     $('success').hidden = false;
     navigator.vibrate?.(12);
+    track('yes_clicked');
   });
 })();
 </script>
