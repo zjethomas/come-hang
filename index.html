@@ -189,7 +189,8 @@ a{color:var(--rust)} a:hover{color:var(--rust-dark)}
 
   const $ = id => document.getElementById(id);
   const yes = $('yes'), no = $('no');
-  const track = name => window.clarity?.('event', name);   // Clarity custom events
+  // Clarity: custom event (Smart events filter) + custom tag (Custom filters → Custom tags)
+  const track = name => { window.clarity?.('event', name); window.clarity?.('set', name, 'yes'); };
 
   // ---- Calendar + SMS links ----
   const ics = [
