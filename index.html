@@ -71,11 +71,32 @@ a{color:var(--rust)} a:hover{color:var(--rust-dark)}
 .btn-yes:active{transform:rotate(-2.5deg) scale(.95)}
 .btn-no{position:relative;z-index:20;font-family:Kalam,cursive;font-size:18px;line-height:1;padding:10px 20px 11px;background:var(--paper);color:#5E4838;border:2px solid rgba(59,42,30,.6);border-radius:var(--sketch-b);cursor:pointer;touch-action:manipulation;transform:translate(var(--nx,0px),var(--ny,0px)) rotate(var(--nr,2deg));transition:transform .42s cubic-bezier(.34,1.56,.64,1)}
 
+.btn-alt{display:block;margin:20px 0 0 26px;max-width:calc(100% - 40px);padding:10px 4px;background:none;border:0;font-family:Kalam,cursive;font-size:16px;line-height:1.35;color:var(--muted);text-align:left;text-wrap:balance;text-decoration:underline wavy rgba(180,80,42,.5);text-decoration-thickness:1.5px;text-underline-offset:5px;cursor:pointer;transform:rotate(-1deg)}
+.btn-alt:active{color:var(--rust)}
+
+.note--propose{margin:0 4px 0 16px;animation:settle .7s cubic-bezier(.3,1.4,.5,1) both}
+.note--propose .tape{left:44%;background:var(--tape-ochre);transform:rotate(-4deg)}
+.note--propose .sheet{padding:20px 18px 36px 20px}
+.back{background:none;border:0;padding:8px 8px 8px 0;font-family:Kalam,cursive;font-size:15px;color:var(--muted);cursor:pointer}
+.note--propose h2{margin:4px 0 0;font-size:40px;line-height:1}
+.note--propose .sub{margin:4px 0 0;font-size:15px;color:var(--muted)}
+.slots{list-style:none;margin:16px 0 0;padding:0;display:grid;gap:12px}
+.slot{width:100%;display:flex;flex-direction:column;align-items:flex-start;gap:1px;padding:10px 14px 11px;background:var(--ticket) url(assets/paper.svg);border:2px solid rgba(59,42,30,.55);border-radius:var(--sketch-b);font-family:Kalam,cursive;color:var(--ink);text-align:left;cursor:pointer;transform:rotate(var(--tilt,0deg))}
+.slot:active{transform:rotate(var(--tilt,0deg)) scale(.97)}
+.slot .when{font-size:18px;font-weight:700;line-height:1.25}
+.slot .where{font-size:15px;color:var(--muted);line-height:1.25}
+.slots-empty{margin:14px 0 0;font-size:17px;line-height:1.4}
+
 .note--success{margin:0 6px 0 18px;animation:settle .7s cubic-bezier(.3,1.4,.5,1) both}
 .note--success .tape{left:12%;background:var(--tape-teal);transform:rotate(5deg)}
 .note--success .sheet{padding:30px 22px 34px}
-.note--success h2{margin:0;font-size:min(56px,13.4vw);line-height:.95;text-wrap:balance}
-.note--success p{margin:12px 0 0;font-size:17px;line-height:1.4;color:#4E3B2E}
+.note--success .salute{margin:0 0 4px;font-size:26px;line-height:1;color:var(--rust);transform:rotate(-3deg);transform-origin:left}
+.note--success h2{margin:0;font-size:min(50px,11.6vw);line-height:.98;text-wrap:balance}
+.venue-link{display:grid;grid-template-columns:28px minmax(0,1fr);gap:8px;align-items:start;margin-top:14px;color:#4E3B2E;text-decoration:none}
+.venue-link img{width:26px;height:26px;margin-top:2px}
+.venue-link b{display:block;font-size:18px;line-height:1.25;color:var(--ink)}
+.venue-link span{display:block;font-size:16px;line-height:1.35}
+.venue-link .hint{font-size:14px;color:var(--muted);margin-top:2px}
 .success-actions{display:flex;flex-wrap:wrap;gap:14px;margin-top:22px}
 .success-actions a{font-size:16px;font-weight:700;padding:9px 18px 10px;text-decoration:none}
 .btn-cal{background:var(--teal);color:var(--paper);border:2px solid var(--ink-line);border-radius:var(--sketch-a);transform:rotate(-1.5deg)}
@@ -126,7 +147,7 @@ a{color:var(--rust)} a:hover{color:var(--rust-dark)}
           <img src="assets/doodle-clock.svg" alt="" style="transform:rotate(-8deg)">
           <div class="col"><span class="label">when</span><span class="val">Saturday, October 3 · 11am</span></div>
         </div>
-        <a class="row" href="https://maps.apple.com/?q=Luxor+Cafe&amp;address=148+Mt+Auburn+St,+Cambridge,+MA+02138" target="_blank" rel="noopener">
+        <a class="row" id="invite-where" href="https://maps.apple.com/?q=Luxor+Cafe&amp;address=148+Mt+Auburn+St,+Cambridge,+MA+02138" target="_blank" rel="noopener">
           <img src="assets/doodle-pin.svg" alt="" style="transform:rotate(6deg)">
           <div class="col">
             <span class="label">where</span>
@@ -154,16 +175,34 @@ a{color:var(--rust)} a:hover{color:var(--rust-dark)}
       <button class="btn-yes" id="yes" type="button">Yes ☕</button>
       <button class="btn-no" id="no" type="button">No</button>
     </div>
+    <button class="btn-alt" id="alt" type="button">I’m difficult and want to propose another time</button>
+  </section>
+
+  <section id="propose" hidden>
+    <div class="note note--propose">
+      <div class="tape"></div>
+      <div class="sheet">
+        <button class="back" id="back" type="button">← back</button>
+        <h2 class="brush">Fine, pick a time</h2>
+        <p class="sub">Any of these work for Zac.</p>
+        <ul class="slots" id="slots"></ul>
+        <p class="slots-empty" id="slots-empty" hidden>Looks like all of these have passed. Text Zac and you’ll sort out a time.</p>
+      </div>
+    </div>
   </section>
 
   <section id="success" hidden>
     <div class="note note--success">
       <div class="tape"></div>
       <div class="sheet">
-        <h2 class="brush">See you Saturday Ms&nbsp;Pearson&nbsp;☕</h2>
-        <p>October 3, 11am at Luxor Cafe.</p>
+        <p class="salute brush">Ms Pearson,</p>
+        <h2 class="brush" id="success-title">See you soon ☕</h2>
+        <a class="venue-link" id="success-venue" target="_blank" rel="noopener">
+          <img src="assets/doodle-pin.svg" alt="" style="transform:rotate(6deg)">
+          <div><b id="venue-name"></b><span id="venue-address"></span><span class="hint">(tap for directions →)</span></div>
+        </a>
         <div class="success-actions">
-          <a class="btn-cal" id="cal" download="coffee-saturday.ics">Add to calendar</a>
+          <a class="btn-cal" id="cal">Add to calendar</a>
           <div class="nudge-row">
             <a class="btn-text" id="sms">Let Zac know</a>
             <svg class="nudge-arrows" viewBox="0 0 46 56" fill="none" stroke="var(--ink-line)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
@@ -181,28 +220,90 @@ a{color:var(--rust)} a:hover{color:var(--rust-dark)}
 
 <script>
 (() => {
-  // ---- Config ----
-  const ZAC_PHONE = '';            // e.g. '+16175551234' — leave '' to open a blank iMessage composer
-  const SMS_BODY  = 'Yes Dunkin is superior to Starbucks I agree no takebacks';
+  // =====================================================================
+  // FILL IN: Zac's number for the "Let Zac know" iMessage, e.g. '+16175551234'.
+  // Leave '' to open a blank iMessage composer with the message prefilled.
+  const ZAC_PHONE = '';
+  // =====================================================================
+
+  const VENUES = {
+    luxor:     { name: 'Luxor Cafe',                 short: 'Luxor Cafe', address: '148 Mt Auburn St, Cambridge, MA 02138' },
+    zinnekens: { name: 'Zinneken’s Belgian Waffles', short: 'Zinneken’s', address: '1154 Massachusetts Ave, Cambridge, MA 02138' }
+  };
+
+  // The original invite (what "Yes" confirms). Times are America/New_York, 24h.
+  const ORIGINAL = { date: '2026-10-03', time: '11:00', venue: 'luxor' };
+
+  // "Propose another time" options — edit freely. Slots whose start has passed are hidden automatically.
+  const SLOTS = [
+    { date: '2026-09-30', time: '19:30', venue: 'zinnekens' },
+    { date: '2026-10-02', time: '11:00', venue: 'luxor' },
+    { date: '2026-10-07', time: '19:30', venue: 'zinnekens' },
+    { date: '2026-10-09', time: '19:00', venue: 'zinnekens' },
+    { date: '2026-10-10', time: '11:00', venue: 'luxor' },
+    { date: '2026-10-11', time: '11:00', venue: 'luxor' }
+  ];
+
+  const DURATION_MIN = 90;
   const PALETTE   = ['#C8622D','#D9A441','#9E3F22','#E4B653','#B8532A','#2A6466','#DB8A3A'];
   const NO_LABELS = ['No','hmm, no?','nope','too slow','it’s just coffee','so close','try Yes?'];
+  const DAYS   = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+  const MONTHS = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
 
   const $ = id => document.getElementById(id);
-  const yes = $('yes'), no = $('no');
+  const yes = $('yes'), no = $('no'), alt = $('alt');
   // Clarity: custom event (Smart events filter) + custom tag (Custom filters → Custom tags)
-  const track = name => { window.clarity?.('event', name); window.clarity?.('set', name, 'yes'); };
+  const track = (name, value = 'yes') => { window.clarity?.('event', name); window.clarity?.('set', name, value); };
 
-  // ---- Calendar + SMS links ----
-  const ics = [
-    'BEGIN:VCALENDAR','VERSION:2.0','PRODID:-//Come Hang//EN','BEGIN:VEVENT',
-    'UID:come-hang-20261003@luxor','DTSTAMP:20260926T120000Z',
-    'DTSTART:20261003T150000Z','DTEND:20261003T170000Z',   // 11am–1pm America/New_York (EDT)
-    'SUMMARY:Coffee with Zac ☕','LOCATION:Luxor Cafe\\, 148 Mt Auburn St\\, Cambridge\\, MA',
-    'DESCRIPTION:Run of show: Fred Again / Latin Mafia album review. Semiconductor supply chains + counting agents. Brainstorming next Substack pieces.',
-    'END:VEVENT','END:VCALENDAR'
-  ].join('\r\n');
-  $('cal').href = 'data:text/calendar;charset=utf-8,' + encodeURIComponent(ics);
-  $('sms').href = `sms:${ZAC_PHONE.replace(/[^\d+]/g,'')}&body=${encodeURIComponent(SMS_BODY)}`;
+  // Email is not implemented yet. Called on every confirmation (plain Yes and proposed slots);
+  // it will later email the chosen slot to zacharythomas@hks.harvard.edu.
+  function notifyZac(slot) {}
+
+  // ---- Slot helpers ----
+  const parts = s => {
+    const [y, m, d] = s.date.split('-').map(Number), [hh, mm] = s.time.split(':').map(Number);
+    return { y, m, d, hh, mm };
+  };
+  const dayLabel = s => { const { y, m, d } = parts(s); return `${DAYS[new Date(Date.UTC(y, m - 1, d)).getUTCDay()]} ${MONTHS[m - 1]} ${d}`; };
+  const timeLabel = s => { const { hh, mm } = parts(s); return `${hh % 12 || 12}${mm ? ':' + String(mm).padStart(2, '0') : ''}${hh < 12 ? 'am' : 'pm'}`; };
+  // Minutes east of UTC for New York at a given instant (-240 in EDT, -300 in EST).
+  function nyOffset(ms) {
+    try {
+      const tz = new Intl.DateTimeFormat('en-US', { timeZone: 'America/New_York', timeZoneName: 'shortOffset' })
+        .formatToParts(new Date(ms)).find(p => p.type === 'timeZoneName').value;   // e.g. "GMT-4"
+      const [, sign, h, min] = tz.match(/GMT([+-])(\d+)(?::(\d+))?/);
+      return (sign === '-' ? -1 : 1) * (+h * 60 + +(min || 0));
+    } catch { return -240; }
+  }
+  const startMs = s => { const { y, m, d, hh, mm } = parts(s), guess = Date.UTC(y, m - 1, d, hh, mm); return guess - nyOffset(guess) * 60000; };
+
+  const isIOS = /iP(hone|ad|od)/.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+  const mapsUrl = v => isIOS
+    ? `https://maps.apple.com/?q=${encodeURIComponent(v.name)}&address=${encodeURIComponent(v.address)}`
+    : `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(v.name + ', ' + v.address)}`;
+  $('invite-where').href = mapsUrl(VENUES[ORIGINAL.venue]);
+
+  function icsFor(s) {
+    const v = VENUES[s.venue], { y, m, d, hh, mm } = parts(s);
+    const local = dt => `${dt.getUTCFullYear()}${String(dt.getUTCMonth() + 1).padStart(2, '0')}${String(dt.getUTCDate()).padStart(2, '0')}T${String(dt.getUTCHours()).padStart(2, '0')}${String(dt.getUTCMinutes()).padStart(2, '0')}00`;
+    const esc = t => t.replace(/([,;\\])/g, '\\$1');
+    const stamp = new Date().toISOString().replace(/[-:]/g, '').replace(/\.\d+/, '');
+    return [
+      'BEGIN:VCALENDAR', 'VERSION:2.0', 'PRODID:-//Come Hang//EN', 'CALSCALE:GREGORIAN',
+      'BEGIN:VTIMEZONE', 'TZID:America/New_York',
+      'BEGIN:DAYLIGHT', 'TZOFFSETFROM:-0500', 'TZOFFSETTO:-0400', 'TZNAME:EDT', 'DTSTART:19700308T020000', 'RRULE:FREQ=YEARLY;BYMONTH=3;BYDAY=2SU', 'END:DAYLIGHT',
+      'BEGIN:STANDARD', 'TZOFFSETFROM:-0400', 'TZOFFSETTO:-0500', 'TZNAME:EST', 'DTSTART:19701101T020000', 'RRULE:FREQ=YEARLY;BYMONTH=11;BYDAY=1SU', 'END:STANDARD',
+      'END:VTIMEZONE',
+      'BEGIN:VEVENT',
+      `UID:come-hang-${s.date}-${s.time.replace(':', '')}@zjethomas.github.io`, `DTSTAMP:${stamp}`,
+      `DTSTART;TZID=America/New_York:${local(new Date(Date.UTC(y, m - 1, d, hh, mm)))}`,
+      `DTEND;TZID=America/New_York:${local(new Date(Date.UTC(y, m - 1, d, hh, mm + DURATION_MIN)))}`,
+      'SUMMARY:Hang with Zac', `LOCATION:${esc(v.name + ', ' + v.address)}`,
+      'DESCRIPTION:Run of show: Fred Again / Latin Mafia album review. Semiconductor supply chains + counting agents. Brainstorming next Substack pieces.',
+      'END:VEVENT', 'END:VCALENDAR'
+    ].join('\r\n');
+  }
+
   $('cal').addEventListener('click', () => track('add_to_calendar'));
   $('sms').addEventListener('click', () => track('let_zac_know'));
 
@@ -221,16 +322,22 @@ a{color:var(--rust)} a:hover{color:var(--rust-dark)}
     }
   }
 
-  // ---- The dodging No button ----
+  // ---- The dodging No button (never lands on Yes or the "propose another time" button) ----
   let off = { x: 0, y: 0 }, dodges = 0;
   function dodge() {
     const r = no.getBoundingClientRect();
     const bx = r.left - off.x, by = r.top - off.y, m = 16, vw = innerWidth, vh = innerHeight;
+    const keepOut = [alt, yes].map(el => el.getBoundingClientRect());
+    const blocked = (x, y) => keepOut.some(b => x < b.right + 12 && x + r.width > b.left - 12 && y < b.bottom + 12 && y + r.height > b.top - 12);
     let tx, ty, i = 0;
     do {
       tx = m + Math.random() * Math.max(0, vw - r.width - 2 * m);
       ty = m + 50 + Math.random() * Math.max(0, vh - r.height - 2 * m - 50);
-    } while (Math.hypot(tx - r.left, ty - r.top) < 150 && ++i < 25);
+    } while ((blocked(tx, ty) || Math.hypot(tx - r.left, ty - r.top) < 150) && ++i < 80);
+    if (blocked(tx, ty)) {   // fall back to the first clear corner
+      const corners = [[m, m + 50], [vw - r.width - m, m + 50], [m, vh - r.height - m], [vw - r.width - m, vh - r.height - m]];
+      [tx, ty] = corners.find(([x, y]) => !blocked(x, y)) || corners[0];
+    }
     off = { x: tx - bx, y: ty - by };
     no.style.setProperty('--nx', off.x + 'px');
     no.style.setProperty('--ny', off.y + 'px');
@@ -242,7 +349,33 @@ a{color:var(--rust)} a:hover{color:var(--rust-dark)}
   no.addEventListener('pointerdown', e => { e.preventDefault(); dodge(); });
   no.addEventListener('click', e => { e.preventDefault(); dodge(); });
 
-  // ---- Yes → confetti + success ----
+  // ---- Screens ----
+  function show(id) {
+    for (const s of ['invite', 'propose', 'success']) $(s).hidden = s !== id;
+    const top = $(id).getBoundingClientRect().top + scrollY - 90;
+    scrollTo({ top: Math.max(0, top), behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' });
+  }
+
+  // ---- Propose another time ----
+  function renderSlots() {
+    const list = $('slots'), upcoming = SLOTS.filter(s => startMs(s) > Date.now());
+    list.replaceChildren(...upcoming.map((s, i) => {
+      const li = document.createElement('li'), b = document.createElement('button');
+      b.type = 'button'; b.className = 'slot';
+      b.style.setProperty('--tilt', (i % 2 ? .7 : -.8) + 'deg');
+      b.innerHTML = `<span class="when"></span><span class="where"></span>`;
+      b.querySelector('.when').textContent = `${dayLabel(s)} · ${timeLabel(s)}`;
+      b.querySelector('.where').textContent = VENUES[s.venue].short;
+      b.addEventListener('click', () => confirm(s, b, 'slot_picked'));
+      li.appendChild(b);
+      return li;
+    }));
+    $('slots-empty').hidden = upcoming.length > 0;
+  }
+  alt.addEventListener('click', () => { renderSlots(); show('propose'); track('propose_clicked'); });
+  $('back').addEventListener('click', () => { show('invite'); alt.scrollIntoView({ block: 'center' }); });
+
+  // ---- Confetti + confirmation (shared by Yes and proposed slots) ----
   function confetti(x, y) {
     const layer = document.createElement('div');
     layer.className = 'fx fx--confetti';
@@ -265,14 +398,23 @@ a{color:var(--rust)} a:hover{color:var(--rust-dark)}
     document.body.appendChild(layer);
     setTimeout(() => layer.remove(), 3000);
   }
-  yes.addEventListener('click', () => {
-    const r = yes.getBoundingClientRect();
+  function confirm(slot, fromEl, event) {
+    const v = VENUES[slot.venue], r = fromEl.getBoundingClientRect();
     confetti(r.left + r.width / 2, r.top + r.height / 2);
-    $('invite').hidden = true;
-    $('success').hidden = false;
+    $('success-title').textContent = `See you ${dayLabel(slot)} · ${timeLabel(slot)} ☕`;
+    $('venue-name').textContent = v.name;
+    $('venue-address').textContent = v.address;
+    $('success-venue').href = mapsUrl(v);
+    $('cal').href = 'data:text/calendar;charset=utf-8,' + encodeURIComponent(icsFor(slot));
+    $('cal').download = `hang-with-zac-${slot.date}.ics`;
+    const body = `See you ${dayLabel(slot)} at ${timeLabel(slot)} fellow nerd 🤓`;
+    $('sms').href = `sms:${ZAC_PHONE.replace(/[^\d+]/g, '')}&body=${encodeURIComponent(body)}`;
+    show('success');
     navigator.vibrate?.(12);
-    track('yes_clicked');
-  });
+    track(event, `${slot.date} ${slot.time}`);
+    notifyZac(slot);
+  }
+  yes.addEventListener('click', () => confirm(ORIGINAL, yes, 'yes_clicked'));
 })();
 </script>
 </body>
