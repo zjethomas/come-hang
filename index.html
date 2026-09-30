@@ -71,7 +71,9 @@ a{color:var(--rust)} a:hover{color:var(--rust-dark)}
 .btn-yes:active{transform:rotate(-2.5deg) scale(.95)}
 .btn-no{position:relative;z-index:20;font-family:Kalam,cursive;font-size:18px;line-height:1;padding:10px 20px 11px;background:var(--paper);color:#5E4838;border:2px solid rgba(59,42,30,.6);border-radius:var(--sketch-b);cursor:pointer;touch-action:manipulation;transform:translate(var(--nx,0px),var(--ny,0px)) rotate(var(--nr,2deg));transition:transform .42s cubic-bezier(.34,1.56,.64,1)}
 
-.btn-alt{display:block;margin:20px 0 0 26px;max-width:calc(100% - 40px);padding:10px 4px;background:none;border:0;font-family:Kalam,cursive;font-size:16px;line-height:1.35;color:var(--muted);text-align:left;text-wrap:balance;text-decoration:underline wavy rgba(180,80,42,.5);text-decoration-thickness:1.5px;text-underline-offset:5px;cursor:pointer;transform:rotate(-1deg)}
+.alt-row{display:flex;align-items:center;gap:2px;margin:20px 12px 0 10px}
+.alt-row .nudge-arrows{animation-name:nudge-r}
+.btn-alt{display:block;flex:1 1 auto;min-width:0;margin:0;padding:10px 4px;background:none;border:0;font-family:Kalam,cursive;font-size:16px;line-height:1.35;color:var(--muted);text-align:left;text-wrap:balance;text-decoration:underline wavy rgba(180,80,42,.5);text-decoration-thickness:1.5px;text-underline-offset:5px;cursor:pointer;transform:rotate(-1deg)}
 .btn-alt:active{color:var(--rust)}
 
 .note--propose{margin:0 4px 0 16px;animation:settle .7s cubic-bezier(.3,1.4,.5,1) both}
@@ -114,6 +116,7 @@ a{color:var(--rust)} a:hover{color:var(--rust-dark)}
 @keyframes fall{0%{transform:translate3d(0,-8vh,0) rotate(0)}25%{transform:translate3d(var(--sway),22vh,0) rotate(90deg)}50%{transform:translate3d(0,50vh,0) rotate(180deg)}75%{transform:translate3d(var(--sway),78vh,0) rotate(270deg)}100%{transform:translate3d(0,110vh,0) rotate(360deg)}}
 @keyframes burst{0%{transform:translate(0,0) rotate(0) scale(.5);opacity:1}35%{transform:translate(var(--dx),var(--dy)) rotate(var(--r1)) scale(1);opacity:1}100%{transform:translate(calc(var(--dx) * 1.35),calc(var(--dy) + 70vh)) rotate(var(--r2)) scale(1);opacity:0}}
 @keyframes nudge{0%,100%{transform:translateX(0)}50%{transform:translateX(-5px)}}
+@keyframes nudge-r{0%,100%{transform:translateX(0)}50%{transform:translateX(5px)}}
 @keyframes settle{0%{opacity:0;transform:translateY(14px) rotate(-4deg)}100%{opacity:1;transform:translateY(0) rotate(-1.2deg)}}
 @media (prefers-reduced-motion:reduce){.fx--leaves{display:none}.btn-no{transition:none}.nudge-arrows{animation:none}}
 </style>
@@ -175,7 +178,16 @@ a{color:var(--rust)} a:hover{color:var(--rust-dark)}
       <button class="btn-yes" id="yes" type="button">Yes ☕</button>
       <button class="btn-no" id="no" type="button">No</button>
     </div>
-    <button class="btn-alt" id="alt" type="button">I’m difficult and want to propose another time</button>
+    <div class="alt-row" id="alt-row">
+      <svg class="nudge-arrows" viewBox="0 0 46 56" fill="none" stroke="var(--ink-line)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <g transform="translate(46 0) scale(-1 1)">
+          <path d="M43 6 Q24 6 8 23 M16.6 20.3 L8 23 L10 14.2"/>
+          <path d="M44 29 Q26 25 6 29 M14.5 31.8 L6 29 L12.7 23"/>
+          <path d="M42 52 Q22 52 9 36 M10.4 44.9 L9 36 L17.4 39.3"/>
+        </g>
+      </svg>
+      <button class="btn-alt" id="alt" type="button">I’m difficult and want to propose another time</button>
+    </div>
   </section>
 
   <section id="propose" hidden>
@@ -327,7 +339,7 @@ a{color:var(--rust)} a:hover{color:var(--rust-dark)}
   function dodge() {
     const r = no.getBoundingClientRect();
     const bx = r.left - off.x, by = r.top - off.y, m = 16, vw = innerWidth, vh = innerHeight;
-    const keepOut = [alt, yes].map(el => el.getBoundingClientRect());
+    const keepOut = [$('alt-row'), yes].map(el => el.getBoundingClientRect());
     const blocked = (x, y) => keepOut.some(b => x < b.right + 12 && x + r.width > b.left - 12 && y < b.bottom + 12 && y + r.height > b.top - 12);
     let tx, ty, i = 0;
     do {
